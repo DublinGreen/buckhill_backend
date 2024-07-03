@@ -1,3 +1,12 @@
+# INSTALL DOCKER AND RUN CONTAINERS
+ With docker installed on your machine, run the docker command
+
+>> docker-composer up -d 
+
+# HOW TO RUN API
+ php -S localhost:8000 -t ./public
+
+
 # Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
