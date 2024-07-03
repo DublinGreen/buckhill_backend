@@ -23,21 +23,22 @@ services:
     networks:
       - app-network
 
+  #Using lumen and php inbuilt server. No need to use Nginx service
   #Nginx Service
-  webserver:
-    image: nginx:alpine
-    container_name: webserver
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - ./nginx-logs:/var/log/nginx
-    networks:
-      - app-network
+  # webserver:
+  #   image: nginx:alpine
+  #   container_name: webserver
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "95:95"
+  #     - "443:443"
+  #   volumes:
+  #     - ./:/var/www
+  #     - ./nginx/conf.d/:/etc/nginx/conf.d/
+  #     - ./nginx-logs:/var/log/nginx
+  #   networks:
+  #     - app-network
 
   #MySQL Service
   db:
@@ -46,7 +47,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "3307:3307"
+      - "3308:3308"
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
