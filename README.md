@@ -1,10 +1,18 @@
-# INSTALL DOCKER AND RUN CONTAINERS
- With docker installed on your machine, run the docker command
+# INSTALL DOCKER, BUILD AND RUN CONTAINERS
+ With docker installed on your machine, run the docker build command
 
+>> docker-compose build
 >> docker-composer up -d 
 
 # HOW TO RUN API
- php -S localhost:8000 -t ./public
+if the build and containers were succesfully setup and running. Visit the url on your browser
+[a link] (http://localhost:8000/)
+
+
+# PROCESSES DONE AUTOMATICALLY
+Database migration and data seeders are done automatically within the DockerFile, so there is not need to manually run those commands
+
+# Swagger Documentation
 
 
 # Lumen PHP Framework
