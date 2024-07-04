@@ -20,25 +20,27 @@ services:
     volumes:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    # command: >
+    #   sh -c "composer update && php artisan migrate:refresh --seed && php -S localhost:8000 public/index.php "  
     networks:
       - app-network
 
   #Using lumen and php inbuilt server. No need to use Nginx service
   #Nginx Service
-  # webserver:
-  #   image: nginx:alpine
-  #   container_name: webserver
-  #   restart: unless-stopped
-  #   tty: true
-  #   ports:
-  #     - "95:95"
-  #     - "443:443"
-  #   volumes:
-  #     - ./:/var/www
-  #     - ./nginx/conf.d/:/etc/nginx/conf.d/
-  #     - ./nginx-logs:/var/log/nginx
-  #   networks:
-  #     - app-network
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "95:95"
+      - "445:445"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx-logs:/var/log/nginx
+    networks:
+      - app-network
 
   #MySQL Service
   db:
@@ -47,7 +49,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "3308:3308"
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}

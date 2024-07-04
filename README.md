@@ -1,7 +1,7 @@
 # INSTALL DOCKER AND RUN CONTAINERS
  With docker installed on your machine, run the docker command
 
-RUN docker-composer up -d 
+>> docker-composer up -d 
 
 # HOW TO RUN API
  php -S localhost:8000 -t ./public

@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    mysql
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -36,3 +37,8 @@ RUN pecl config-set php_ini "${PHP_INI_DIR}/php.ini"
 #     && docker-php-ext-enable mcrypt;
 
 USER $user
+
+RUN composer update
+
+CMD php artisan serve --host=0.0.0.0
+EXPOSE 8000
