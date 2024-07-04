@@ -1,8 +1,7 @@
 # INSTALL DOCKER, BUILD AND RUN CONTAINERS
  With docker installed on your machine, run the docker build command
 
->> docker-compose build
->> docker-composer up -d 
+>> docker-compose build && docker-composer up -d 
 
 # HOW TO RUN API
 if the build and containers were succesfully setup and running. Visit the url on your browser
