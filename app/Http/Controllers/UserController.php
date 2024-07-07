@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
-use App\Models\Personnel;
-use App\Models\Responsibility;
-use App\Models\Supply;
+use App\Models\User;
+// use App\Models\Responsibility;
+// use App\Models\Supply;
 
-class PersonnelController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        $personnel = Personnel::orderBy('first_name', 'ASC')->get();
+        $obj = User::orderBy('first_name', 'ASC')->get();
         return response(['data' => $personnel, 'message' => 'personnel data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
     }
 

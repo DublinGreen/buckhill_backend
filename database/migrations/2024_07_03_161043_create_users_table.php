@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('avatar')->unique()->nullable();
             $table->string('address');
             $table->string('phone_number');
-            $table->rememberToken();
+            $table->enum('rememberToken',['YES','NO'])->default('NO');
             $table->timestamps();
             $table->timestamp('last_login_at')->nullable();
         });

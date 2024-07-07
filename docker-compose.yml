@@ -20,8 +20,8 @@ services:
     volumes:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    # command: >
-    #   sh -c "composer update && php artisan migrate:refresh --seed && php -S localhost:8000 public/index.php "  
+    command: >
+      sh -c "composer update && php artisan migrate:refresh --seed && php -S localhost:8000 public/index.php "  
     networks:
       - app-network
 
