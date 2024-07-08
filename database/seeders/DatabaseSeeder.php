@@ -17,9 +17,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BrandSeeder::class,
             CategorySeeder::class,
-            OrderSeeder::class,
-            OrderStatusSeeder::class,
             PaymentSeeder::class,
+            OrderStatusSeeder::class,
+            OrderSeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

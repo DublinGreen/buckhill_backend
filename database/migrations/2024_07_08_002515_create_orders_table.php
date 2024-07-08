@@ -17,8 +17,8 @@ return new class extends Migration
             $table->integer('order_status_id')->unsigned()->nullable()->constrained();
             $table->string('payment_id')->unique()->constrained();
             $table->string('uuid')->unique();
-            $table->string('products');
-            $table->string('address');
+            $table->json('products');
+            $table->json('address');
             $table->float('delivery_fee');
             $table->float('amount');
             $table->timestamp('shipped_at')->nullable();

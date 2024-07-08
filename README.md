@@ -3,13 +3,18 @@
 
 >> docker-compose build && docker-composer up -d 
 
+# HOW TO RUN MIGRATIONs AND SEEDERS
+>> php artisan migrate:refresh --seed
+
 # HOW TO RUN API
-if the build and containers were succesfully setup and running. Visit the url on your browser
+>> php -S localhost:8000 -t public
+At running the command. Visit the url on your browser
 [a link] (http://localhost:8000/)
 
 
-# PROCESSES DONE AUTOMATICALLY
-Database migration and data seeders are done automatically within the DockerFile, so there is not need to manually run those commands
+# Buckhill Project Documentation
+[a link] (https://buckhill.atlassian.net/wiki/spaces/BR/pages/2359525423/Fullstack+Developer+Task+Pet+Shop#The-Recommended)
+
 
 # Swagger Documentation
 
