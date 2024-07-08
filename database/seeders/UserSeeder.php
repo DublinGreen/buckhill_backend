@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'last_name' => 'Dublin-Green',
                 'is_admin' => \App\Enums\AdminStatus::YES,
                 'is_marketing' => \App\Enums\MarketingStatus::YES,
-                'email' => 'idisimagha'.'greendublin007'.'@gmail.com',
+                'email' => 'greendublin007@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make("Steeldubs0077!@#"),
                 'avatar' => null,

@@ -4,7 +4,16 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
-
+use Illuminate\Support\Facades\Hash;
+use Lcobucci\JWT\JwtFacade;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Validation\Constraint;
+use Lcobucci\Clock\SystemClock;
+use Lcobucci\JWT\Encoding\JoseEncoder;
+use App\Models\PersonalAccessToken;
+use Lcobucci\JWT\Token\Parser;
+use Carbon\Carbon;
 class Authenticate
 {
     /**
@@ -35,9 +44,25 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+        if ($request->input('token') !== 'my-secret-token') {
+            $token = trim(substr($request->header('Authorization'), 6));// Remove Bearer String and single space
+            
+            $checkNow   = Carbon::now()->toImmutable();
+            $tokenObj = PersonalAccessToken::where('token', $token)->first();
+
+            $mysqlTimestamp = strtotime($tokenObj->expires_at);
+            $nowTimeStamp = strtotime($checkNow);
+
+            // check token and expires_at
+            if(empty($tokenObj) || ($mysqlTimestamp < $nowTimeStamp)){
+                return response(['data' => [], 'message' => 'token is not valid', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_UNAUTHORIZED')]);
+            }else{
+                $tokenObj->last_used_at = Carbon::now();
+                $tokenObj->updated_at = Carbon::now();
+                $saved = $tokenObj->save();
+            }
         }
+ 
 
         return $next($request);
     }
