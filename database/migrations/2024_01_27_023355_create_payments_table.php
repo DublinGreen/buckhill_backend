@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             $table->enum('type',['CREDIT_CARD','CASH_ON_DELIVERY','BANK_TRANSFER'])->default('BANK_TRANSFER');            
-            $table->string('details');
+            $table->json('details');
             $table->timestamps();
         });
     }

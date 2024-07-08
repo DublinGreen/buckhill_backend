@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderStatus extends Model
+class Promotion extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,8 @@ class OrderStatus extends Model
       'id',
       'uuid',
       'title',
-      'slug',
+      'content',
+      'metadata',
       'created_at',
       'updated_at'
     ];

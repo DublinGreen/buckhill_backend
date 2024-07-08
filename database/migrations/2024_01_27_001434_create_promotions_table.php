@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             $table->string('title')->nullable();
+            $table->longText('content')->nullable();
+            $table->json('metadata');
             $table->string('slug')->nullable();
             $table->timestamps();
         });

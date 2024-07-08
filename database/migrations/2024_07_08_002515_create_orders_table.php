@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->unsigned()->nullable()->constrained();
+            $table->integer('order_status_id')->unsigned()->nullable()->constrained();
+            $table->string('payment_id')->unique()->constrained();
             $table->string('uuid')->unique();
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->string('payment_id')->unique();
             $table->string('products');
             $table->string('address');
-            $table->float('amount');
             $table->float('delivery_fee');
+            $table->float('amount');
             $table->timestamp('shipped_at')->nullable();
             $table->timestamps();
+
         });
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class ProductSeeder extends Seeder
 {
@@ -16,32 +17,15 @@ class ProductSeeder extends Seeder
     {
         $data = [
             [
-                'personnel_id' => random_int(1,5),
-                'name' => 'maize',
-                'description' => 'maize harvest',
-                'quantity' => '50',
-                'created_at' => now(),
-            ],
-            [
-                'personnel_id' => random_int(1,5),
-                'name' => 'tomatoes',
-                'description' => 'tomatoes harvest',
-                'quantity' => '10',
-                'created_at' => now(),
-            ],
-            [
-                'personnel_id' => random_int(1,5),
-                'name' => 'water melons',
-                'description' => 'water melons harvest',
-                'quantity' => '250',
-                'created_at' => now(),
-            ],
-            [
-                'personnel_id' => random_int(1,5),
-                'name' => 'apples',
-                'description' => 'apples harvest',
-                'quantity' => '2500',
-                'created_at' => now(),
+                // 'uuid' =>  Uuid::uuid4(),
+                // 'title' => 'pet dog 101',
+                // 'price' => 1300.00,
+                // 'description' => 'Order for pet dog 101',
+                // 'meta' => [
+                //     "brand" => Uuid::uuid4(),
+                //     "image" => Uuid::uuid4()
+                // ],
+                // 'created_at' => now(),
             ],
         ];
         Product::insert($data);

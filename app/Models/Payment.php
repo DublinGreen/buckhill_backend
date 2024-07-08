@@ -13,7 +13,7 @@ class Payment extends Model
       'id',
       'uuid',
       'type',
-      'details',
+      'details' => 'array',
       'created_at',
       'updated_at'
     ];

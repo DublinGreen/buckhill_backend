@@ -13,17 +13,17 @@ class UserController extends Controller
 {
     public function index()
     {
-        $obj = User::orderBy('first_name', 'ASC')->get();
-        return response(['data' => $personnel, 'message' => 'personnel data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
+        $obj = User::orderBy('email', 'ASC')->get();
+        return response(['data' => $obj, 'message' => 'user data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
     }
 
     public function getById($id)
     {
-        $personnel = Personnel::find($id);
-        if(!empty($personnel)){
-            return response(['data' => $personnel, 'message' => 'single personnel data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
+        $obj = User::find($id);
+        if(!empty($obj)){
+            return response(['data' => $obj, 'message' => 'single user data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
         }else{
-            return response(['data' => [], 'message' => 'unable to get personnel data', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
+            return response(['data' => [], 'message' => 'unable to get user data', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
         }
     }
 
@@ -153,12 +153,12 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        $personnel = Personnel::find($id);
-        if(!empty($personnel)){
-            $personnel->delete();
-            return response(['data' => $personnel, 'message' => 'personnel data deleted', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
+        $obj = User::find($id);
+        if(!empty($obj)){
+            $obj->delete();
+            return response(['data' => $obj, 'message' => 'user data deleted', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
         }else{
-            return response(['data' => [], 'message' => 'unable to delete personnel data', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
+            return response(['data' => [], 'message' => 'unable to user user data', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
         }
     }
 
