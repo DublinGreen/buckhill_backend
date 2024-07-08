@@ -35,12 +35,14 @@ Route::group(['prefix'=> env('PREFIX'),'as'=>'user.'], function(){
     Route::get('user', 'UserController@index');
     Route::get('user/{id}', 'UserController@getById');
     Route::delete('user/{id}', 'UserController@delete');
-    // Route::get('user/orders', UserController::class . '@orders')->name('orders');
+    Route::get('user/orders/{id}', 'UserController@orders');
+    Route::put('user/edit/{id}', 'UserController@edit');
+
+
     // Route::post('user/create', UserController::class . '@create')->name('create');
     // Route::post('user/forgot-password', UserController::class . '@forgotPassword')->name('forgotPassword');
     // Route::post('user/login', UserController::class . '@login')->name('login');
     // Route::get('user/logout', UserController::class . '@logout')->name('logout');
     // Route::post('user/reset-password-token', UserController::class . '@resetPasswordToken')->name('resetPasswordToken');
-    // Route::put('user/edit', UserController::class . '@edit')->name('edit');
     
 });

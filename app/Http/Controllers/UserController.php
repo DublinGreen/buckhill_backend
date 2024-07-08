@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
 use App\Models\User;
-// use App\Models\Responsibility;
+use App\Models\Order;
 // use App\Models\Supply;
 
 class UserController extends Controller
@@ -27,20 +27,14 @@ class UserController extends Controller
         }
     }
 
-    public function getResponsibilities($id)
+    public function orders($id)
     {
-        $personnel = Personnel::find($id);
+        $obj = Order::Where('user_id', $id)->get();
 
-        if(!empty($personnel->id)){
-            $responsibility = Responsibility::where('personnel_id' , '=',$personnel->id)->get();
-
-            if(!empty($responsibility)){
-                return response(['data' => $responsibility, 'message' => "get personnel responsibilities", 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
-            }else{
-                return response(['data' => [], 'message' => 'unable to get personnel responsibilities', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
-            }
+        if(!empty($obj)){
+            return response(['data' => $obj, 'message' => "get user orders", 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
         }else{
-            return response(['data' => [], 'message' => 'unable to get personnel responsibilities by id', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
+            return response(['data' => [], 'message' => 'unable to get user orders', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
         }
         
     }
@@ -111,15 +105,14 @@ class UserController extends Controller
         return response(['data' => $personnelObj, 'message' => 'created personnel data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_CREATED')]);
     }
 
-    public function update(Request $request,$id)
+    public function edit(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required',
-            'telephone'  => 'required',
-            'age'        => 'required',
-            'sex'        => 'required',
+            'first_name'        => 'required',
+            'last_name'         => 'required',
+            'email'             => 'required',
+            'address'           => 'required',
+            'phone_number'      => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -131,24 +124,22 @@ class UserController extends Controller
         $first_name = $input['first_name'];
         $last_name = $input['last_name'];
         $email = $input['email'];
-        $telephone = $input['telephone'];
-        $age = $input['age'];
-        $sex = $input['sex'];
+        $address = $input['address'];
+        $phone_number = $input['phone_number'];
 
-        $personnel = Personnel::find($id);
-        if(empty($personnel)){
-            return response(['data' => [], 'message' => 'unable to update personnel data, invalid id', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
+        $obj = User::find($id);
+        if(empty($obj)){
+            return response(['data' => [], 'message' => 'unable to update user data, invalid id', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
         }
-        $personnel->first_name = $first_name;
-        $personnel->last_name = $last_name;
-        $personnel->email = $email;
-        $personnel->telephone = $telephone;
-        $personnel->age = $age;
-        $personnel->sex = $sex;
-        $personnel->updated_at = Carbon::now();
-        $saved = $personnel->save();
+        $obj->first_name = $first_name;
+        $obj->last_name = $last_name;
+        $obj->email = $email;
+        $obj->address = $address;
+        $obj->phone_number = $phone_number;
+        $obj->updated_at = Carbon::now();
+        $saved = $obj->save();
         
-        return response(['data' => $personnel, 'message' => 'single personnel data updated', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
+        return response(['data' => $obj, 'message' => 'single user data updated', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
     }
 
     public function delete($id)
