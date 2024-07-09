@@ -10,37 +10,22 @@ use App\Models\Order;
 use App\Models\PasswordResetToken;
 use App\Models\PersonalAccessToken;
 use Illuminate\Support\Facades\Hash;
+use Lcobucci\JWT\Encoding\ChainedFormatter;
+use Lcobucci\JWT\Encoding\JoseEncoder;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Token\Builder;
+use Lcobucci\JWT\Token\Parser;
+use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Ramsey\Uuid\Uuid;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
 
     public function index()
     {
         $obj = User::orderBy('email', 'ASC')->get();
         return response(['data' => $obj, 'message' => 'user data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
-    }
-
-    public function getById($id)
-    {
-        $obj = User::find($id);
-        if(!empty($obj)){
-            return response(['data' => $obj, 'message' => 'single user data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
-        }else{
-            return response(['data' => [], 'message' => 'unable to get user data', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
-        }
-    }
-
-    public function orders($id)
-    {
-        $obj = Order::Where('user_id', $id)->get();
-
-        if(!empty($obj)){
-            return response(['data' => $obj, 'message' => "get user orders", 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
-        }else{
-            return response(['data' => [], 'message' => 'unable to get user orders', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
-        }
-        
     }
 
     public function create(Request $request)
@@ -182,71 +167,6 @@ class UserController extends Controller
             return response(['data' => $obj, 'message' => 'user data deleted', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
         }else{
             return response(['data' => [], 'message' => 'unable to user user data', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
-        }
-    }
-
-    public function forgotPassword(Request $request){
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-        ]);
-
-        if ($validator->fails()) {
-            return response(['message' => 'Validation errors', 'errors' => $validator->errors(), 'status' => false], 422);
-        }
-
-        $input = $request->all();
-        $email = $input['email'];
-
-        $obj = User::where('email', $email)->first();
-        $emailToken = urlencode(Hash::make($obj->uuid . $obj->email));
-
-        if(!empty($obj)){
-            $passwordResetTokenObj = PasswordResetToken::create([
-                'email' => $obj->email,
-                'token' => $emailToken,
-                'created_at' => Carbon::now(),
-                'updated_at' => null,
-            ]);
-            $saved = $passwordResetTokenObj->save();
-            return response(['data' => $emailToken, 'message' => 'password reset token generated and email sent', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
-        }else{
-            return response(['data' => [], 'message' => 'invalid user email', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
-        }
-    }
-
-    public function resetPasswordToken(Request $request){
-        $validator = Validator::make($request->all(), [
-            'email'                 => 'required|email',
-            'password'              => 'required|string|confirmed',
-            'password_confirmation' => 'required',
-            'token'                 => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response(['message' => 'Validation errors', 'errors' => $validator->errors(), 'status' => false], 422);
-        }
-
-        $input = $request->all();
-        $email = $input['email'];
-        $password_confirmation = $input['password_confirmation'];
-        $password = $input['password'];
-        $hashPassword = Hash::make($password);
-        $token = $input['token'];
-
-        $passwordResetTokenObj = PasswordResetToken::where('token', $token)->first();
-
-        if(!empty($passwordResetTokenObj)){
-                    
-            $obj = User::where('email', $email)->first();
-            $obj->password = $hashPassword;
-            $obj->updated_at = Carbon::now();
-            $saved = $obj->save();
-
-            $passwordResetTokenObj->delete();
-            $response = ['token' => $token ,'email' => $email];
-            return response(['data' => $response, 'message' => 'password reset success, login with new password', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
-        }else{
-            return response(['data' => [], 'message' => 'invalid password reset token', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
         }
     }
 

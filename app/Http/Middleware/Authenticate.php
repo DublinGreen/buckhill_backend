@@ -50,8 +50,10 @@ class Authenticate
             $checkNow   = Carbon::now()->toImmutable();
             $tokenObj = PersonalAccessToken::where('token', $token)->first();
 
-            $mysqlTimestamp = strtotime($tokenObj->expires_at);
-            $nowTimeStamp = strtotime($checkNow);
+            if(!empty($tokenObj)){
+                $mysqlTimestamp = strtotime($tokenObj->expires_at);
+                $nowTimeStamp = strtotime($checkNow);
+            }
 
             // check token and expires_at
             if(empty($tokenObj) || ($mysqlTimestamp < $nowTimeStamp)){

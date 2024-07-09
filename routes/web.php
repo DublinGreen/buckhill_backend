@@ -31,6 +31,7 @@ $router->get('/', function () use ($router) {
 });
 
 Route::post(env('PREFIX') . 'user/login', 'UserController@login');
+Route::post(env('PREFIX') . 'admin/login', 'AdminController@login');
 
 
 Route::group(['prefix'=> env('PREFIX'),'as'=>'user.','middleware' => ['auth']], function(){
@@ -39,13 +40,16 @@ Route::group(['prefix'=> env('PREFIX'),'as'=>'user.','middleware' => ['auth']], 
     Route::delete('user/{id}', 'UserController@delete');
     Route::get('user/orders/{id}', 'UserController@orders');
     Route::put('user/edit/{id}', 'UserController@edit');
-    // Route::post('user/login', 'UserController@login');
+    Route::post('user/create', 'UserController@create');
+    Route::get('user/logout', 'UserController@logout');
+    Route::post('user/forgot-password', 'UserController@forgotPassword');
+    Route::post('user/reset-password-token', 'UserController@resetPasswordToken');
 
-    // Route::post('user/forgot-password', UserController::class . '@forgotPassword')->name('forgotPassword');
-    // Route::post('user/login', UserController::class . '@login')->name('login');
-    // Route::get('user/logout', UserController::class . '@logout')->name('logout');
-    // Route::post('user/reset-password-token', UserController::class . '@resetPasswordToken')->name('resetPasswordToken');
-    
+    Route::get('admin/logout', 'AdminController@logout');
+    Route::get('admin/user-listing', 'AdminController@index');
+    Route::post('admin/create', 'AdminController@create');
+    Route::post('admin/user-edit/{id}', 'AdminController@edit');
+    Route::post('admin/user-delete/{id}', 'AdminController@delete');
 });
 
 // Route::post(env('PREFIX') . 'user/login', 'UserController@login')->middleware(Authenticate::class);
