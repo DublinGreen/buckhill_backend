@@ -32,6 +32,8 @@ $router->get('/', function () use ($router) {
 
 Route::post(env('PREFIX') . 'user/login', 'UserController@login');
 Route::post(env('PREFIX') . 'admin/login', 'AdminController@login');
+Route::get(env('PREFIX') . 'user/logout', 'UserController@logout');
+Route::get(env('PREFIX') . 'admin/logout', 'AdminController@logout');
 
 
 Route::group(['prefix'=> env('PREFIX'),'as'=>'user.','middleware' => ['auth']], function(){
@@ -41,11 +43,9 @@ Route::group(['prefix'=> env('PREFIX'),'as'=>'user.','middleware' => ['auth']], 
     Route::get('user/orders/{id}', 'UserController@orders');
     Route::put('user/edit/{id}', 'UserController@edit');
     Route::post('user/create', 'UserController@create');
-    Route::get('user/logout', 'UserController@logout');
     Route::post('user/forgot-password', 'UserController@forgotPassword');
     Route::post('user/reset-password-token', 'UserController@resetPasswordToken');
 
-    Route::get('admin/logout', 'AdminController@logout');
     Route::get('admin/user-listing', 'AdminController@index');
     Route::post('admin/create', 'AdminController@create');
     Route::post('admin/user-edit/{id}', 'AdminController@edit');

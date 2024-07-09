@@ -19,6 +19,11 @@ At running the command. Visit the url on your browser
 # Swagger Documentation
 
 
+# RUN UNIT TESTS
+>> php vendor/bin/phpunit
+<!-- vendor/bin/phpunit --coverage-text -->
+
+
 # Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
