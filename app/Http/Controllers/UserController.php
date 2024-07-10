@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
-
+    
     public function index()
     {
         $obj = User::orderBy('email', 'ASC')->get();

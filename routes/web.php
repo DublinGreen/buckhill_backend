@@ -3,10 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-// use App\Http\Controllers\SupplyController;
-// use App\Http\Controllers\ResponsibilityController;
-// use App\Http\Controllers\ProductController;
-// use App\Http\Controllers\ToolController;
 use App\Http\Middleware\Authenticate;
 
 /** @var \Laravel\Lumen\Routing\Router $router */
@@ -50,6 +46,8 @@ Route::group(['prefix'=> env('PREFIX'),'as'=>'user.','middleware' => ['auth']], 
     Route::post('admin/create', 'AdminController@create');
     Route::post('admin/user-edit/{id}', 'AdminController@edit');
     Route::post('admin/user-delete/{id}', 'AdminController@delete');
-});
 
-// Route::post(env('PREFIX') . 'user/login', 'UserController@login')->middleware(Authenticate::class);
+    Route::get('main/blog', 'MainController@blog');
+    Route::get('main/blog/{id}', 'MainController@blogById');
+    Route::get('main/promotions', 'MainController@promotions');
+});

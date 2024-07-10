@@ -16,12 +16,15 @@ At running the command. Visit the url on your browser
 [a link] (https://buckhill.atlassian.net/wiki/spaces/BR/pages/2359525423/Fullstack+Developer+Task+Pet+Shop#The-Recommended)
 
 
-# Swagger Documentation
+# Swagger Documentation using swagger editor
+visit the link below
+[a link] (https://editor.swagger.io/)
+Change servers/url to match base api url, then load up /openapi.yaml
 
 
 # RUN UNIT TESTS
+Before running test update the TEST_TOKEN in the .env
 >> php vendor/bin/phpunit
-<!-- vendor/bin/phpunit --coverage-text -->
 
 
 # Lumen PHP Framework
