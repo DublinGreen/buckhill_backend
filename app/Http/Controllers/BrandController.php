@@ -81,7 +81,7 @@ class BrandController extends Controller
             $obj->delete();
             return response(['data' => $obj, 'message' => 'brand data deleted', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
         }else{
-            return response(['data' => [], 'message' => 'unable to user brand data', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
+            return response(['data' => [], 'message' => 'unable to brand data', 'status' => false, 'statusCode' => env('HTTP_SERVER_CODE_BAD_REQUEST')]);
         }
     }
 
