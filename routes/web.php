@@ -50,4 +50,10 @@ Route::group(['prefix'=> env('PREFIX'),'as'=>'user.','middleware' => ['auth']], 
     Route::get('main/blog', 'MainController@blog');
     Route::get('main/blog/{id}', 'MainController@blogById');
     Route::get('main/promotions', 'MainController@promotions');
+
+    Route::get('brand/blog', 'BrandController@brands');
+    Route::post('brand/create', 'BrandController@create');
+    Route::put('brand/{id} ', 'BrandController@edit');
+    Route::get('brand/{id}', 'BrandController@create');
+    Route::delete('brand/{id} ', 'BrandController@brandById');
 });
