@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class ProductController extends Controller
 {
     
-    public function product()
+    public function products()
     {
         $obj = Product::orderBy('title', 'ASC')->get();
         return response(['data' => $obj, 'message' => 'product data', 'status' => true, 'statusCode' => env('HTTP_SERVER_CODE_OK')]);
