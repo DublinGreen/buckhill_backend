@@ -65,9 +65,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         $now   = Carbon::now()->toImmutable();
         $token = $tokenBuilder
             // Configures the issuer (iss claim)
-            ->issuedBy('http://' . $_SERVER['SERVER_NAME'])
+            ->issuedBy('http://' . empty($_SERVER['SERVER_NAME']) ? env('LOCAL_SERVER_URL') : $_SERVER['SERVER_NAME'])
             // Configures the audience (aud claim)
-            ->permittedFor('http://' . $_SERVER['SERVER_NAME'])
+            ->issuedBy('http://' . empty($_SERVER['SERVER_NAME']) ? env('LOCAL_SERVER_URL') : $_SERVER['SERVER_NAME'])
             // Configures the subject of the token (sub claim)
             ->relatedTo('component1')
             // Configures the id (jti claim)

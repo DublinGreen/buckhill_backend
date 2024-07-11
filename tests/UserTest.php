@@ -4,6 +4,7 @@ namespace Tests;
 
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 
 class UserTest extends TestCase
 {
@@ -30,6 +31,21 @@ class UserTest extends TestCase
 
         $this->assertArrayHasKey('message', $data);
         $this->assertArrayHasKey('errors', $data);
+        $this->assertEquals(200, 200);
+
+    }
+
+    public function test_user_login_with_input(): void
+    {
+        
+        $payload = ['email' => 'greendublin007@gmail.com','password' => 'Steeldubs0077!@#'];
+
+        $this->json('POST', 'api/v1/user/login', $payload);
+        $data = json_decode($this->response->getContent(), true);
+        Config::set('TEST_TOKEN', $data['data']['token']);
+
+        $this->assertArrayHasKey('message', $data);
+        $this->assertArrayHasKey('status', $data);
         $this->assertEquals(200, 200);
 
     }
