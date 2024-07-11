@@ -68,4 +68,16 @@ Route::group(['prefix'=> env('PREFIX'),'as'=>'user.','middleware' => ['auth']], 
     Route::delete('product/{id} ', 'ProductController@delete');
     Route::get('product/{id}', 'ProductController@productById');
     Route::get('products', 'ProductController@products');
+
+    Route::get('payments', 'PaymentController@payments');
+    Route::post('payments/create', 'PaymentController@create');
+    Route::get('payments/{id}', 'PaymentController@paymentById');
+    Route::put('payments/{id}', 'PaymentController@edit');
+    Route::delete('payments/{id} ', 'PaymentController@delete');
+
+    Route::get('order-status', 'OrderStatusController@orderStatuses');
+    Route::post('order-status/create', 'OrderStatusController@create');
+    Route::get('order-status/{id}', 'OrderStatusController@orderStatusById');
+    Route::put('order-status/{id}', 'OrderStatusController@edit');
+    Route::delete('order-status/{id} ', 'OrderStatusController@delete');
 });
