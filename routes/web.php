@@ -56,4 +56,10 @@ Route::group(['prefix'=> env('PREFIX'),'as'=>'user.','middleware' => ['auth']], 
     Route::put('brand/{id} ', 'BrandController@edit');
     Route::get('brand/{id}', 'BrandController@create');
     Route::delete('brand/{id} ', 'BrandController@brandById');
+
+    Route::get('categories/blog', 'CategoryController@categories');
+    Route::post('category/create', 'CategoryController@create');
+    Route::put('category/{id} ', 'CategoryController@edit');
+    Route::get('category/{id}', 'CategoryController@create');
+    Route::delete('category/{id} ', 'CategoryController@categoryById');
 });
