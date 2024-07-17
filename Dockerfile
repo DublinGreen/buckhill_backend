@@ -37,7 +37,7 @@ RUN pecl config-set php_ini "${PHP_INI_DIR}/php.ini"
 
 USER $user
 
-RUN composer update
+#RUN composer update
 
 CMD php artisan serve --host=0.0.0.0
 EXPOSE 8000
